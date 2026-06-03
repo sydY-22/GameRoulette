@@ -19,10 +19,26 @@ class GameRoulette:
             all_games_ls.append(all_games['games'][i]['name'])
         return all_games_ls
     
+    def list_games(self):
+        """List all the games."""
+        games = self.get_games()
+
+        for game in games:
+            print(f"{game}")
+        print()
+    
+    def spin(self):
+        """Select a game randomly."""
+        games = self.get_games()
+
+        return print(random.choice(games))
+    
 
 
 def main():
     pick = GameRoulette()
+    #pick.list_games()
+    pick.spin()
 
 
 
