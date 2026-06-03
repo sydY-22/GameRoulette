@@ -12,24 +12,29 @@ steam = Steam(KEY)
 
 def get_games():
     """Gets the games from steam library."""
-    user = steam.users.get_owned_games("76561198271994774")
+    all_games = steam.users.get_owned_games("76561198271994774")
 
     #print(len(user['games']))
 
-    games = []
+    all_games_ls = []
 
-    for i in range(0, len(user['games'])):
-        games.append(user['games'][i]['name'])
-    return games
+    for i in range(0, len(all_games['games'])):
+        all_games_ls.append(all_games['games'][i]['name'])
+    return all_games_ls
+
+
+def list_games():
+    """List all the Games."""
+    pass
 
 
 def spin():
     """Randomly selects a game from library."""
     return print(random.choice(get_games()))
 
+
 def main():
     get_games()
-
     spin()
 
 
