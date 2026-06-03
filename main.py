@@ -31,15 +31,32 @@ class GameRoulette:
         """Select a game randomly."""
         games = self.get_games()
 
-        return print(random.choice(games))
+        return print(f"PLAY!: {random.choice(games)}")
+    
+    def menu(self):
+        """Displays the menu."""
+        print("1. List Games ")
+        print("2. Spin!!!")
+        print("3. Exit...")
     
 
 
 def main():
+    print("Welcome to Game Roulette!!!")
     pick = GameRoulette()
-    #pick.list_games()
-    pick.spin()
+    
+    while True:
+        pick.menu()
+        prompt = input("Please choose options 1-3: ")
 
+        if prompt == '1':
+            pick.list_games()
+        elif prompt == '2':
+            pick.spin()
+            print()
+        else:
+            return False
+        
 
 
 if __name__ == "__main__":
