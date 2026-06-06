@@ -4,14 +4,32 @@ from steam_web_api import Steam
 import random
 import tkinter as tk
 from tkinter import ttk
+from tkinter.ttk import *
 
 load_dotenv(encoding="utf-16")
 
+# color palettes:
+GREEN = "#0A7C6E"
+YELLOW = "#F59E0B"
+ORANGE = "#FF6B35"
+WHITE = "#FAFAFA"
+
 class GameRoulette:
+
+    # main window:
     window = tk.Tk()
     window.title('Game Roulette!')
+    window.config(padx=40, pady=40, bg=ORANGE)
     window.geometry('550x450')
+
+    # canvas:
+    canvas = tk.Canvas(width=250, height=250, bg=ORANGE)
+    roulette_img = tk.PhotoImage(file="roulette-img.png")
+    canvas.create_image(100, 100, image=roulette_img)
+
     string_var = tk.StringVar(value='Game!')
+
+
     
     def get_games(self):
         """Retrieve the games from steam library."""
@@ -43,6 +61,7 @@ class GameRoulette:
         """Randomly select a game on button press."""
         games = self.get_games()
         self.string_var.set(f"PLAY!: {random.choice(games)}")
+    
 
     
     # def menu(self):
@@ -57,14 +76,17 @@ def main():
     print("Welcome to Game Roulette!!!")
     pick = GameRoulette()
 
-    label = ttk.Label(master=pick.window, text='label', textvariable=pick.string_var)
+    # 
+
+    label = ttk.Label(master=pick.window, text='label', textvariable=pick.string_var, background=YELLOW, foreground=GREEN)
     label.pack()
 
-    button = ttk.Button(master=pick.window, text='SPIN!', command=pick.button_func)
+    button = tk.Button(master=pick.window, text='SPIN!', command=pick.button_func, background=GREEN, foreground=WHITE)
     button.pack()
 
+    # run the app:
     pick.window.mainloop()
-    
+
     # while True:
     #     pick.menu()
     #     prompt = input("Please choose options 1-3: ")
