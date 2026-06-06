@@ -2,10 +2,16 @@ import os
 from dotenv import load_dotenv
 from steam_web_api import Steam
 import random
+import tkinter as tk
+from tkinter import ttk
 
 load_dotenv(encoding="utf-16")
 
 class GameRoulette:
+    window = tk.Tk()
+    window.title('Game Roulette!')
+    window.geometry('550x450')
+    string_var = tk.StringVar(value='Game!')
     
     def get_games(self):
         """Retrieve the games from steam library."""
@@ -33,29 +39,43 @@ class GameRoulette:
 
         return print(f"PLAY!: {random.choice(games)}")
     
-    def menu(self):
-        """Displays the menu."""
-        print("1. List Games ")
-        print("2. Spin!!!")
-        print("3. Exit...")
+    def button_func(self):
+        """Randomly select a game on button press."""
+        games = self.get_games()
+        self.string_var.set(f"PLAY!: {random.choice(games)}")
+
+    
+    # def menu(self):
+    #     """Displays the menu."""
+    #     print("1. List Games ")
+    #     print("2. Spin!!!")
+    #     print("3. Exit...")
     
 
 
 def main():
     print("Welcome to Game Roulette!!!")
     pick = GameRoulette()
-    
-    while True:
-        pick.menu()
-        prompt = input("Please choose options 1-3: ")
 
-        if prompt == '1':
-            pick.list_games()
-        elif prompt == '2':
-            pick.spin()
-            print()
-        else:
-            return False
+    label = ttk.Label(master=pick.window, text='label', textvariable=pick.string_var)
+    label.pack()
+
+    button = ttk.Button(master=pick.window, text='SPIN!', command=pick.button_func)
+    button.pack()
+
+    pick.window.mainloop()
+    
+    # while True:
+    #     pick.menu()
+    #     prompt = input("Please choose options 1-3: ")
+
+    #     if prompt == '1':
+    #         pick.list_games()
+    #     elif prompt == '2':
+    #         pick.spin()
+    #         print()
+    #     else:
+    #         return False
         
 
 
