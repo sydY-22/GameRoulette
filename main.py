@@ -2,17 +2,35 @@ import os
 from dotenv import load_dotenv
 from steam_web_api import Steam
 import random
+import tkinter as tk
+from tkinter import ttk
+from tkinter.ttk import *
 
 load_dotenv(encoding="utf-16")
 
+# color palettes:
+GREEN = "#0A7C6E"
+YELLOW = "#F59E0B"
+ORANGE = "#FF6B35"
+WHITE = "#FAFAFA"
+
 class GameRoulette:
+
+    # main window:
+    window = tk.Tk()
+    window.title('Game Roulette!')
+    window.config(padx=40, pady=40, bg=ORANGE)
+    window.geometry('1000x850')
+
+    string_var = tk.StringVar(value='Game!')
+
+
     
     def get_games(self):
         """Retrieve the games from steam library."""
         KEY = os.environ.get("STEAM_API_KEY")
         steam = Steam(KEY)
         all_games = steam.users.get_owned_games("76561198271994774")
-
         all_games_ls = []
 
         for i in range(0, len(all_games['games'])):
@@ -33,29 +51,37 @@ class GameRoulette:
 
         return print(f"PLAY!: {random.choice(games)}")
     
-    def menu(self):
-        """Displays the menu."""
-        print("1. List Games ")
-        print("2. Spin!!!")
-        print("3. Exit...")
+    def button_func(self):
+        """Randomly select a game on button press."""
+        games = self.get_games()
+        self.string_var.set(f"PLAY!: {random.choice(games)}")
     
 
 
 def main():
     print("Welcome to Game Roulette!!!")
     pick = GameRoulette()
-    
-    while True:
-        pick.menu()
-        prompt = input("Please choose options 1-3: ")
 
-        if prompt == '1':
-            pick.list_games()
-        elif prompt == '2':
-            pick.spin()
-            print()
-        else:
-            return False
+
+
+    # display the game
+    label = tk.Label(master=pick.window, text='label', textvariable=pick.string_var, 
+                     background=YELLOW, foreground=GREEN, font=("bold", 35))
+    label.pack(pady=(0, 20))
+
+    # spin button
+    button = tk.Button(master=pick.window, text='SPIN!', command=pick.button_func, 
+                       background=GREEN, foreground=WHITE, font=("bold", 30))
+    button.pack(pady=(0, 20))
+
+    # show roulette image
+    roulette_img = tk.PhotoImage(file="roulette-img2.png")
+    label2 = tk.Label(pick.window, image=roulette_img)
+    label2.pack(pady=(0, 20))
+    
+
+    # run the app:
+    pick.window.mainloop()
         
 
 
