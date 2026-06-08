@@ -22,11 +22,6 @@ class GameRoulette:
     window.config(padx=40, pady=40, bg=ORANGE)
     window.geometry('550x450')
 
-    # canvas:
-    canvas = tk.Canvas(width=250, height=250, bg=ORANGE)
-    roulette_img = tk.PhotoImage(file="roulette-img.png")
-    canvas.create_image(100, 100, image=roulette_img)
-
     string_var = tk.StringVar(value='Game!')
 
 
@@ -76,13 +71,23 @@ def main():
     print("Welcome to Game Roulette!!!")
     pick = GameRoulette()
 
-    # 
 
-    label = ttk.Label(master=pick.window, text='label', textvariable=pick.string_var, background=YELLOW, foreground=GREEN)
+
+    # display the game
+    label = tk.Label(master=pick.window, text='label', textvariable=pick.string_var, background=YELLOW, foreground=GREEN, font=("bold", 35))
     label.pack()
 
-    button = tk.Button(master=pick.window, text='SPIN!', command=pick.button_func, background=GREEN, foreground=WHITE)
+    # spin button
+    button = tk.Button(master=pick.window, text='SPIN!', command=pick.button_func, background=GREEN, foreground=WHITE, font=("bold", 30))
     button.pack()
+
+    # canvas:
+    #canvas = tk.Canvas(width=400, height=400, bg=ORANGE, highlightthickness=0)
+    roulette_img = tk.PhotoImage(file="roulette-img2.png")
+    label2 = tk.Label(pick.window, image=roulette_img)
+    label2.pack()
+    #canvas.create_image(500, 500, image=roulette_img)
+    
 
     # run the app:
     pick.window.mainloop()
