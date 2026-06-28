@@ -78,14 +78,8 @@ def main():
     button.pack(pady=(0, 20))
 
     # show roulette image
-    # Get the directory where your script is running
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-
-    # Link it to your image name
-    image_path = os.path.join(script_dir, "roulette-img2.png")
-
-    absolute_img_path = Path(r"E:\\GameRoulette\\PNG-Images\\roulette-img2.png")
-    roulette_img = tk.PhotoImage(file=image_path)
+    absolute_img_path = Path(r"E:\GameRoulette\PNG-Images\roulette-img2.png")
+    roulette_img = tk.PhotoImage(file=absolute_img_path)
     label2 = tk.Label(pick.window, image=roulette_img)
     label2.pack(pady=(0, 20))
     

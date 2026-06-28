@@ -1,0 +1,6 @@
+steam api web key = 231B0F9CB5C1D318DC93879B7B265837
+domain name = goldeneagle
+# steam_id = 76561198271994774
+
+echo "STEAM_API_KEY=<YOUR_STEAM_API KEY>" >> .env
+
