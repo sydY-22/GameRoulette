@@ -15,15 +15,32 @@ YELLOW = "#F59E0B"
 ORANGE = "#FF6B35"
 WHITE = "#FAFAFA"
 
-class GameRoulette:
+class GameRoulette(tk.Tk):
 
-    # main window:
-    window = tk.Tk()
-    window.title('Game Roulette!')
-    window.config(padx=40, pady=40, bg=ORANGE)
-    window.geometry('1000x850')
+    def __init__(self):
+        super().__init__()
+        # main window:
+        self.title('Game Roulette!')
+        self.config(padx=40, pady=40, bg=ORANGE)
+        self.geometry('1000x850')
 
-    string_var = tk.StringVar(value='Game!')
+        self.string_var = tk.StringVar(value='Game!')
+
+          # display the game
+        self.label = tk.Label(master=self, text='label', textvariable=self.string_var, 
+                        background=YELLOW, foreground=GREEN, font=("bold", 35))
+        self.label.pack(pady=(0, 20))
+
+        # spin button
+        self.button = tk.Button(master=self, text='SPIN!', command=self.button_func, 
+                        background=GREEN, foreground=WHITE, font=("bold", 30))
+        self.button.pack(pady=(0, 20))
+
+        # show roulette image
+        self.absolute_img_path = Path(r"E:\GameRoulette\PNG-Images\roulette-img2.png")
+        self.roulette_img = tk.PhotoImage(file=self.absolute_img_path)
+        self.label2 = tk.Label(self, image=self.roulette_img)
+        self.label2.pack(pady=(0, 20))
 
 
     
@@ -65,24 +82,5 @@ def main():
     print("Welcome to Game Roulette!!!")
     pick = GameRoulette()
 
-
-
-    # display the game
-    label = tk.Label(master=pick.window, text='label', textvariable=pick.string_var, 
-                     background=YELLOW, foreground=GREEN, font=("bold", 35))
-    label.pack(pady=(0, 20))
-
-    # spin button
-    button = tk.Button(master=pick.window, text='SPIN!', command=pick.button_func, 
-                       background=GREEN, foreground=WHITE, font=("bold", 30))
-    button.pack(pady=(0, 20))
-
-    # show roulette image
-    absolute_img_path = Path(r"E:\GameRoulette\PNG-Images\roulette-img2.png")
-    roulette_img = tk.PhotoImage(file=absolute_img_path)
-    label2 = tk.Label(pick.window, image=roulette_img)
-    label2.pack(pady=(0, 20))
-    
-
     # run the app:
-    pick.window.mainloop()
+    pick.mainloop()
