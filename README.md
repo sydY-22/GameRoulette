@@ -5,5 +5,5 @@ Picks a random game in steam library using steam api. Use tkinter to create gui 
 In terminal: cd Python --> python main.py -debug
 
 # Demo:
-![project demo](GIFS/game-roulette-gif.gif)
+![project demo](GIFS/game-roulette-gif2.gif)
 
