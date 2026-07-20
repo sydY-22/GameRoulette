@@ -35,7 +35,7 @@ class GameRoulette(tk.Tk):
         self.is_spinning = False
 
         # Canvas for the wheel
-        self.canvas = tk.Canvas(self, width=500, height=500, bg=ORANGE)
+        self.canvas = tk.Canvas(self, width=400, height=450, bg=ORANGE)
         self.canvas.pack(pady=20)
 
         # wheel pointer:
@@ -50,9 +50,9 @@ class GameRoulette(tk.Tk):
         self.label.pack(pady=(0, 20))
 
         # spin button
-        self.button = tk.Button(master=self, text='SPIN!', command=self.button_func, 
+        self.spin_button = tk.Button(master=self, text='SPIN!', command=self.start_spin, 
                         background=GREEN, foreground=WHITE, font=("bold", 30))
-        self.button.pack(pady=(0, 20))
+        self.spin_button.pack(pady=(0, 20))
 
         # show roulette image
         # self.absolute_img_path = Path(r"E:\GameRoulette\PNG-Images\roulette-img2.png")
@@ -105,6 +105,40 @@ class GameRoulette(tk.Tk):
 
             # Draw the text
             #self.canvas.create_text(x, y, text=item, font=("Arial", 12, "bold"), tags="slice")
+    
+    def start_spin(self):
+        if self.is_spinning:
+                return
+            
+        self.is_spinning = True
+        self.spin_button.config(state=tk.DISABLED)
+
+        # Pick a random item to land on
+        target_index = random.randint(0, len(self.colors) - 1)
+            
+        # Calculate exact angle needed to land this item at the top (90 degrees)
+        slice_angle = 360 / len(self.colors)
+        target_angle = 270 - (target_index * slice_angle) - (slice_angle / 2)
+            
+        # Make the wheel do 4 to 6 full rotations plus the target angle
+        total_spin = (360 * random.randint(4, 6)) + target_angle
+            
+        self.animate_spin(total_spin, 0, 50)
+
+    def animate_spin(self, total_rotation, current_rotation, speed):
+        # Easing effect: slow down towards the end
+        remaining = total_rotation - current_rotation
+        step = max(2, remaining / 20)  # Gradually decrease the step size
+
+        if current_rotation < total_rotation:
+            self.current_angle = (self.current_angle + step) % 360
+            self.draw_wheel()
+            self.after(speed, self.animate_spin, total_rotation, current_rotation + step, speed)
+        else:
+            self.is_spinning = False
+            self.spin_button.config(state=tk.NORMAL)
+            # select random game from library
+            self.button_func()
     
     def spin(self):
         """Select a game randomly."""
