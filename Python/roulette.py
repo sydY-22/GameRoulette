@@ -54,12 +54,13 @@ class GameRoulette(tk.Tk):
                         background=GREEN, foreground=WHITE, font=("bold", 30))
         self.spin_button.pack(pady=(0, 20))
 
-        # show roulette image
-        # self.absolute_img_path = Path(r"E:\GameRoulette\PNG-Images\roulette-img2.png")
-        # self.roulette_img = tk.PhotoImage(file=self.absolute_img_path)
-        # self.label2 = tk.Label(self, image=self.roulette_img)
-        # self.label2.pack(pady=(0, 20))
+        # Load and set a cross-platform PNG icon
+        self.script_dir = os.path.dirname(os.path.abspath(__file__))
+        self.icon_path = os.path.join(self.script_dir, "roulette-img.png") # Uses a PNG
 
+        # Load the image and set it as the icon
+        self.img = tk.PhotoImage(file=self.icon_path)
+        self.iconphoto(False, self.img)
 
     
     def get_games(self):
