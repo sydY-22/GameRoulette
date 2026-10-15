@@ -13,7 +13,7 @@ load_dotenv(encoding="utf-16")
 # color palettes:
 GREEN = "#0A7C6E"
 YELLOW = "#F59E0B"
-ORANGE = "#FF6B35"
+GRAY = "#393E46"
 WHITE = "#FAFAFA"
 
 class GameRoulette(tk.Tk):
@@ -22,7 +22,7 @@ class GameRoulette(tk.Tk):
         super().__init__()
         # main window:
         self.title('Game Roulette!')
-        self.config(padx=40, pady=40, bg=ORANGE)
+        self.config(padx=40, pady=40, bg=GRAY)
         self.geometry('1000x850')
 
         self.string_var = tk.StringVar(value='Game!')
@@ -35,7 +35,7 @@ class GameRoulette(tk.Tk):
         self.is_spinning = False
 
         # Canvas for the wheel
-        self.canvas = tk.Canvas(self, width=400, height=450, bg=ORANGE)
+        self.canvas = tk.Canvas(self, width=400, height=450, bg=GRAY)
         self.canvas.pack(pady=20)
 
         # wheel pointer:
